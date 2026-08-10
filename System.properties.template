@@ -15,10 +15,10 @@ deployerInstallationPath=${SAGHome}/IntegrationServer/instances/default/packages
 deployerHost=localhost
 deployerPort=5555
 deployerUsername=Administrator
-deployerPassword=manage
+deployerPassword=<passwordhere>
 
 #Target CI Test Server Settings
 testISHost=localhost
-testISPort=5555
+testISPort=5565
 testISUsername=Administrator
-testISPassword=manage
+testISPassword=<passwordhere>
