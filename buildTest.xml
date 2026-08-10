@@ -17,6 +17,31 @@
 		<fileset dir="${SAGHome}/common/lib" includes="**/gf.jakarta.mail.jar" />
 		<fileset dir="${SAGHome}/common/lib" includes="wm-isclient.jar" />
 		<fileset dir="${SAGHome}/IntegrationServer/lib" includes="wm-isserver.jar" />
+
+		<!--
+		    FIX: javax.xml.soap.Node — NoClassDefFoundError on Java 11+
+		    ============================================================
+		    The SAAJ API (javax.xml.soap.*) was bundled in the JDK up to Java 8
+		    but was removed entirely from Java 11 onwards (JEP 320).
+		    IDataXMLCoder (used by WmTestSuiteUtils) depends on javax.xml.soap.Node
+		    at runtime to decode IData objects from XML test fixture files.
+
+		    Fix: supply the SAAJ API interfaces JAR and the Axis2 SAAJ implementation
+		    JAR from the SAG WS-Stack installation, both of which use the original
+		    javax.xml.soap namespace required by the compiled webMethods test classes.
+
+		    Verified present on SAG install at:
+		      ${SAGHome}/WS-Stack/lib/javax-xml-soap-api-1.4.0.jar  (46 KB)
+		      ${SAGHome}/WS-Stack/lib/axis2-saaj-1.6.2.jar          (96 KB)
+
+		    NOTE: Do NOT use the jakarta-xml-soap-api*.jar files found under
+		    ${SAGHome}/common/migrate — those use the jakarta.xml.soap namespace
+		    (Jakarta EE 9+) which is incompatible with the javax.xml.soap imports
+		    in the compiled webMethods test framework JARs.
+		-->
+		<fileset dir="${SAGHome}/WS-Stack/lib" includes="javax-xml-soap-api-1.4.0.jar" />
+		<fileset dir="${SAGHome}/WS-Stack/lib" includes="axis2-saaj-1.6.2.jar" />
+
 		<fileset dir="./lib" includes="httpunit.jar" />
 		<fileset dir="./lib" includes="junit*.jar" />
 		<fileset dir="./lib" includes="xmlunit*.jar" />
