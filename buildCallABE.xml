@@ -9,7 +9,7 @@
  -->
 
 <project name="Build" default="buildWM" basedir=".">
-        
+        <property environment="env"/>
         <property name="abeHome" value="${SAGHome}/common/AssetBuildEnvironment"/>
         
         <property name="abeBuildfileDir" value="master_build"/>
