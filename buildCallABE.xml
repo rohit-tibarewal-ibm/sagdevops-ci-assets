@@ -16,13 +16,14 @@
 
         <property name="abeBuildfileFile" value="build.xml"/>
 
-	<property name="abeBuildPropertiesReference" value="master_build_Reference/build.properties"/>
+		<property name="abeBuildPropertiesBasePath" value="master_build_Reference"/>
 
-
-
-	<target name="buildWM" description="build project" depends="cleanupBuild, prepareABEproperties">				
-		<echo>invoke ABE Build</echo>					
-		<ant antfile="${abeBuildfileFile}" dir="${abeHome}/${abeBuildfileDir}" target="build"/>
+	<target name="buildWM" description="build project" depends="cleanupBuild">				
+		<echo>invoke ABE Build</echo>		
+		<echo>  BUILD_PROPS_LOCATION (OS env) = ${env.BUILD_PROPS_LOCATION}</echo>
+		<echo>  abeBuildPropertiesBasePath = ${basedir}/${abeBuildPropertiesBasePath}</echo>
+		<ant antfile="${abeBuildfileFile}" dir="${abeHome}/${abeBuildfileDir}" target="build">
+		</ant>
 	</target>
 	
 	<target name="cleanupBuild">			
@@ -36,20 +37,7 @@
 		</if>
 	</target>
 	
-	<target name="prepareABEproperties">			
-		<if>
-			<not>
-				<available file="${abeHome}/${abeBuildfileDir}/build.properties.original" type="file"/>
-			</not>
-			<then>
-				<!-- back up the original if not back up is being made -->
-				<move file="${abeHome}/${abeBuildfileDir}/build.properties" tofile="${abeHome}/${abeBuildfileDir}/build.properties.original"/>
-			</then>
-		</if>
-				
-		<!-- move build.properties from SVN to the target ABE folder -->
-		<copy file="${abeBuildPropertiesReference}" tofile="${abeHome}/${abeBuildfileDir}/build.properties" overwrite="true"/>		
-	</target>
-	
+	<!-- prepareABEproperties removed — BUILD_PROPS_LOCATION handles
+         property injection without touching any product file -->
 	
 </project>
