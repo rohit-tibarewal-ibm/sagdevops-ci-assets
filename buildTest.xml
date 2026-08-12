@@ -13,7 +13,10 @@
 	<property name="testSuitePackagesPath" value="${isTestDir}"/>
 
 	<path id="junitClasspath">
-		<fileset dir="${SAGHome}/common/lib/ext" includes="enttoolkit.jar" />
+		<!-- Path updated for v12.1 JAVA 21 -->		
+		<!-- fileset dir="${SAGHome}/common/lib/ext" includes="enttoolkit.jar" / -->
+		<fileset dir="${SAGHome}/IntegrationServer/lib/jars" includes="enttoolkit.jar" />
+		
 		<fileset dir="${SAGHome}/common/lib" includes="**/gf.jakarta.mail.jar" />
 		<fileset dir="${SAGHome}/common/lib" includes="wm-isclient.jar" />
 		<fileset dir="${SAGHome}/IntegrationServer/lib" includes="wm-isserver.jar" />
@@ -39,7 +42,11 @@
 		    (Jakarta EE 9+) which is incompatible with the javax.xml.soap imports
 		    in the compiled webMethods test framework JARs.
 		-->
-		<fileset dir="${SAGHome}/WS-Stack/lib" includes="javax-xml-soap-api-1.4.0.jar" />
+		
+		<!-- Path updated for v12.1 JAVA 21 -->		
+		<!-- fileset dir="${SAGHome}/WS-Stack/lib" includes="javax-xml-soap-api-1.4.0.jar" / -->
+		<fileset dir="${SAGHome}/WS-Stack/lib" includes="jakarta-xml-soap-api-3.0.0.jar" />
+		
 		<fileset dir="${SAGHome}/WS-Stack/lib" includes="axis2-saaj-1.6.2.jar" />
 
 		<fileset dir="./lib" includes="httpunit.jar" />
